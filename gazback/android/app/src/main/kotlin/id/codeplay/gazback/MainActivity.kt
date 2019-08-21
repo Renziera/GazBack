@@ -1,4 +1,4 @@
-package com.example.gazback
+package id.codeplay.gazback
 
 import android.os.Bundle
 
