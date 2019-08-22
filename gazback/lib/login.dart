@@ -145,8 +145,49 @@ class NewUserScreen extends StatefulWidget {
 }
 
 class _NewUserScreenState extends State<NewUserScreen> {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Data Pengguna'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Nama'),
+            TextField(
+              controller: _controller,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 16),
+            RaisedButton(
+              onPressed: () async {
+                if (_controller.text.isEmpty) return;
+                FirebaseUser user = await FirebaseAuth.instance.currentUser();
+                await Firestore.instance
+                    .collection('pengguna')
+                    .document(user.uid)
+                    .setData({
+                  'nama': _controller.text,
+                  'saldo': 250000,
+                  'poin': 1500,
+                });
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    (r) => false);
+              },
+              child: Text('SUBMIT'),
+              color: Colors.blue,
+              textColor: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
