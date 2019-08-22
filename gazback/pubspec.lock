@@ -29,13 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  camera:
-    dependency: transitive
-    description:
-      name: camera
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.4"
   charcode:
     dependency: transitive
     description:
@@ -78,13 +71,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  device_info:
-    dependency: transitive
-    description:
-      name: device_info
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0+2"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -99,25 +85,18 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0+8"
-  firebase_ml_vision:
-    dependency: transitive
+  firebase_livestream_ml_vision:
+    dependency: "direct main"
     description:
-      name: firebase_ml_vision
+      name: firebase_livestream_ml_vision
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0+3"
+    version: "1.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_camera_ml_vision:
-    dependency: "direct main"
-    description:
-      name: flutter_camera_ml_vision
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -158,13 +137,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
-  path_provider:
-    dependency: transitive
-    description:
-      name: path_provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   pedantic:
     dependency: transitive
     description:
@@ -179,6 +151,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   quiver:
     dependency: transitive
     description:

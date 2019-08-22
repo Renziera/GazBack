@@ -61,6 +61,11 @@ android {
             signingConfig signingConfigs.gazback
         }
     }
+
+    packagingOptions {
+      exclude 'META-INF/androidx.exifinterface_exifinterface.version'
+      exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 flutter {
@@ -73,3 +78,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

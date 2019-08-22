@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "938246498175",
+    "firebase_url": "https://gaz-back.firebaseio.com",
+    "project_id": "gaz-back",
+    "storage_bucket": "gaz-back.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938246498175:android:1982e524e6ff5cc5",
+        "android_client_info": {
+          "package_name": "id.codeplay.gazback"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938246498175-d6kptqehejvs1e5skvgrtrge0hrr52cc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.codeplay.gazback",
+            "certificate_hash": "b63075bcd0c2f04dd3bd07fe8eb2972382df75eb"
+          }
+        },
+        {
+          "client_id": "938246498175-2b3kq601uqrif62q0nq0fvrcl39v9aeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP6oXZQjgHnaO-FpZOpuosjE8mbepTKNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938246498175-2b3kq601uqrif62q0nq0fvrcl39v9aeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

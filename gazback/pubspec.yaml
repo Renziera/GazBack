@@ -1,5 +1,5 @@
 name: gazback
-description: A new Flutter project.
+description: GazBack
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -22,7 +22,8 @@ dependencies:
   firebase_core: ^0.4.0+8
   firebase_auth: ^0.14.0+2
   cloud_firestore: ^0.12.9
-  flutter_camera_ml_vision: ^2.2.1
+  firebase_livestream_ml_vision: ^1.0.1
+  qr_flutter: ^3.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -55,6 +56,13 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
+  fonts:
+    - family: Livvic
+      fonts:
+        - asset: fonts/Livvic-Regular.ttf
+        - asset: fonts/Livvic-Bold.ttf
+          weight: 700
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
