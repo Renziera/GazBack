@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_livestream_ml_vision/firebase_livestream_ml_vision.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,9 @@ class PertaminaScreen extends StatefulWidget {
 
 class _PertaminaScreenState extends State<PertaminaScreen> {
   FirebaseVision _vision;
-  bool _shouldProcess = true;
-  String _plat;
+  bool _showButton = false;
+  String _plat = '';
+  Timer _timer;
 
   @override
   void initState() {
@@ -28,18 +31,24 @@ class _PertaminaScreenState extends State<PertaminaScreen> {
     }
     Stream<VisionText> stream = await _vision.addTextRecognizer();
     stream.listen((data) {
-      if (_shouldProcess) {
-        print(data.text);
-        _plat = data.text;
-        for (TextBlock block in data.blocks) {
-          final String text = block.text;
-          for (TextLine line in block.lines) {
-            RegExp('').hasMatch(line.text);
+      for (TextBlock block in data.blocks) {
+        for (TextLine line in block.lines) {
+          final String text = line.text.replaceAll(RegExp(r'\s+'), '');
+          if (RegExp(r'^[A-Z]{1,2}\d{1,4}[A-Z]{1,3}$').hasMatch(text)) {
+            setState(() {
+              _plat = text;
+              _showButton = true;
+            });
+            if (_timer != null) _timer.cancel();
+            _timer = Timer(Duration(seconds: 3), () {
+              setState(() {
+                _plat = '';
+                _showButton = false;
+              });
+            });
+            break;
           }
         }
-        setState(() {
-          _shouldProcess = false;
-        });
       }
     });
     setState(() {});
@@ -72,20 +81,51 @@ class _PertaminaScreenState extends State<PertaminaScreen> {
           ),
         ],
       ),
-      body: _vision == null
-          ? Center(
-              child: Text('Initializing camera...'),
-            )
-          : _shouldProcess
-              ? SizedBox.expand(
-                  child: FirebaseCameraPreview(_vision),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          _vision == null
+              ? Center(
+                  child: Text('Initializing camera...'),
                 )
-              : BeliBensin(),
+              : SizedBox.expand(
+                  child: FirebaseCameraPreview(_vision),
+                ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                '$_plat',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 48,
+                ),
+              ),
+              SizedBox(height: 16),
+              _showButton
+                  ? RaisedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BeliBensin(plat: _plat)));
+                      },
+                      child: Text('ISI'),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(height: 16),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
 class BeliBensin extends StatefulWidget {
+  final String plat;
+  const BeliBensin({@required this.plat});
   @override
   _BeliBensinState createState() => _BeliBensinState();
 }
@@ -98,49 +138,54 @@ class _BeliBensinState extends State<BeliBensin> {
     'Pertamax Plus',
     'Pertamax Turbo'
   ];
-
   String _jenisBensinValue;
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('PLAT NOMOR: AB 7372 QZ'),
-          Text('PEMILIK: JONI'),
-          DropdownButton<String>(
-            value: _jenisBensinValue,
-            onChanged: (String newValue) {
-              setState(() {
-                _jenisBensinValue = newValue;
-              });
-            },
-            items: _jenisBensin.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-          Row(
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {},
-                child: Text('BATAL'),
-                textColor: Colors.white,
-                color: Colors.red,
-              ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text('BELI'),
-                textColor: Colors.white,
-                color: Colors.blue,
-              ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pengisian Bahan Bakar'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('PLAT NOMOR: ${widget.plat}'),
+            Text('PEMILIK: JONI'),
+            DropdownButton<String>(
+              value: _jenisBensinValue,
+              onChanged: (String newValue) {
+                setState(() {
+                  _jenisBensinValue = newValue;
+                });
+              },
+              items: _jenisBensin.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('BATAL'),
+                  textColor: Colors.white,
+                  color: Colors.red,
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text('BELI'),
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
