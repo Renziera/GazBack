@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gazback/splash.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:gazback/page_home.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,38 +7,72 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CameraPosition _initialPos = CameraPosition(
-    target: LatLng(-7.7753915, 110.3777944),
-    zoom: 16,
-  );
+  int _currentIndex = 0;
+  final List<Widget> _pages = [
+    HomePage(),
+    SizedBox.shrink(),
+    SizedBox.shrink(),
+    SizedBox.shrink(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'GazBack',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        backgroundColor: Colors.white,
+        title: Image.asset(
+          'img/gazback.png',
+          height: 24,
         ),
-        centerTitle: true,
         actions: <Widget>[
-          FlatButton(
-            onPressed: () async {
-              PermissionHandler()
+          IconButton(
+            icon: Icon(Icons.notifications),
+            iconSize: 36,
+            color: Colors.grey,
+            onPressed: () {},
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Akun'),
+          ),
+        ],
+      ),
+      body: _pages[_currentIndex],
+    );
+  }
+}
+
+/*
+final CameraPosition _initialPos = CameraPosition(
+    target: LatLng(-7.7753915, 110.3777944),
+    zoom: 16,
+  );
+  PermissionHandler()
                   .requestPermissions([PermissionGroup.location]);
               await FirebaseAuth.instance.signOut();
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => SplashScreen()),
                   (r) => false);
-            },
-            child: Text('Hmm'),
-          ),
-        ],
-      ),
-      body: GoogleMap(
-        initialCameraPosition: _initialPos,
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
-      ),
-    );
-  }
-}
+*/

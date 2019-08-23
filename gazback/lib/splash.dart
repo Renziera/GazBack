@@ -38,8 +38,14 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     start(context);
     return Scaffold(
-      body: Center(
-        child: Text('GAZBACK'),
+      body: Padding(
+        padding: const EdgeInsets.all(36.0),
+        child: Center(
+          child: Image.asset(
+            'img/gazback.png',
+            fit: BoxFit.scaleDown,
+          ),
+        ),
       ),
     );
   }

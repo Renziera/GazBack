@@ -176,6 +176,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                   'nama': _controller.text,
                   'saldo': 250000,
                   'poin': 1500,
+                  'koin': 100,
                 });
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => HomeScreen()),
