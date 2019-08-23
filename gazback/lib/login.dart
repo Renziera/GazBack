@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text('Silahkan masukkan kode verifikasi.'),
                   TextField(
                     controller: _kodeController,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.number,
                     maxLines: 1,
                     textAlign: TextAlign.center,
                   ),

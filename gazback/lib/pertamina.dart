@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_livestream_ml_vision/firebase_livestream_ml_vision.dart';
 import 'package:flutter/material.dart';
@@ -135,10 +136,54 @@ class _BeliBensinState extends State<BeliBensin> {
     'Premium',
     'Pertalite',
     'Pertamax',
-    'Pertamax Plus',
-    'Pertamax Turbo'
+    'Pertamax Turbo',
+    'Bio Solar',
+    'Dexlite',
+    'Pertamina Dex'
   ];
+
+  final _hargaBensin = [
+    7000,
+    7650,
+    9850,
+    11200,
+    9800,
+    10200,
+    11700,
+  ];
+
+  final TextEditingController _literController = TextEditingController();
   String _jenisBensinValue;
+  int _harga;
+  String _namaPemilik = 'TIDAK TERDAFTAR';
+  DocumentReference _docRefPengguna;
+  DocumentReference _docRefKendaraan;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  void _fetchData() async {
+    QuerySnapshot snapshots = await Firestore.instance
+        .collection('kendaraan_terdaftar')
+        .where('plat', isEqualTo: widget.plat)
+        .getDocuments();
+    if (snapshots.documents.isEmpty) return;
+    DocumentSnapshot ds = snapshots.documents.first;
+    DocumentSnapshot pengguna = await Firestore.instance
+        .collection('pengguna')
+        .document(ds.data['pengguna_id'])
+        .get();
+    _docRefPengguna = pengguna.reference;
+    _docRefKendaraan =
+        pengguna.reference.collection('kendaraan').document(ds.documentID);
+    setState(() {
+      _namaPemilik = pengguna.data['nama'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,23 +195,74 @@ class _BeliBensinState extends State<BeliBensin> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('PLAT NOMOR: ${widget.plat}'),
-            Text('PEMILIK: JONI'),
-            DropdownButton<String>(
-              value: _jenisBensinValue,
-              onChanged: (String newValue) {
-                setState(() {
-                  _jenisBensinValue = newValue;
-                });
-              },
-              items: _jenisBensin.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+            Text(
+              'PLAT NOMOR: ${widget.plat}',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 8),
+            Text(
+              'PEMILIK: $_namaPemilik',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                DropdownButton<String>(
+                  value: _jenisBensinValue,
+                  hint: Text('Bahan Bakar'),
+                  onChanged: (String value) {
+                    setState(() {
+                      _jenisBensinValue = value;
+                    });
+                  },
+                  items: _jenisBensin
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                _jenisBensinValue != null
+                    ? Text(
+                        'Rp${_hargaBensin[_jenisBensin.indexOf(_jenisBensinValue)]},00')
+                    : SizedBox.shrink(),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 96,
+                      child: TextField(
+                        controller: _literController,
+                        onSubmitted: (s) {
+                          if (_jenisBensinValue == null) return;
+                          _harga = (_hargaBensin[
+                                      _jenisBensin.indexOf(_jenisBensinValue)] *
+                                  num.parse(s))
+                              .round();
+                          setState(() {});
+                        },
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    Text('L'),
+                  ],
+                ),
+                _harga != null ? Text('Rp$_harga,00') : SizedBox.shrink(),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
                   onPressed: () {
@@ -177,7 +273,19 @@ class _BeliBensinState extends State<BeliBensin> {
                   color: Colors.red,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_harga == null) return;
+                    Navigator.of(context).pop();
+                    if (_docRefKendaraan == null) return;
+                    await _docRefPengguna
+                        .updateData({'saldo': FieldValue.increment(-_harga)});
+                    await _docRefKendaraan.collection('pengisian').add({
+                      'keterangan':
+                          'Pengisian $_jenisBensinValue ${_literController.text}L',
+                      'harga': _harga,
+                      'waktu': FieldValue.serverTimestamp(),
+                    });
+                  },
                   child: Text('BELI'),
                   textColor: Colors.white,
                   color: Colors.blue,

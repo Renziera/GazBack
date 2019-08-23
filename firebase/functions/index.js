@@ -8,16 +8,16 @@ exports.syncKendaraan = functions.firestore
     .document('pengguna/{user_id}/kendaraan/{id}')
     .onCreate(async (snap, context) => {
         const data = snap.data();
-        await db.collection('kendaraan').doc(context.params.id).set({
+        await db.collection('kendaraan_terdaftar').doc(context.params.id).set({
             plat: data.plat,
             pengguna_id: context.params.user_id,
         });
     });
 
-exports.deleteUser = functions.firestore
+exports.deleteKendaraan = functions.firestore
     .document('pengguna/{user_id}/kendaraan/{id}')
     .onDelete(async (snap, context) => {
-        await db.collection('kendaraan').doc(context.params.id).delete();
+        await db.collection('kendaraan_terdaftar').doc(context.params.id).delete();
     });
 
 exports.syncTransaksi = functions.firestore
