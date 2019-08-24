@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gazback/page_akun.dart';
+import 'package:gazback/page_gazkan.dart';
+import 'package:gazback/page_hadiah.dart';
 import 'package:gazback/page_home.dart';
 import 'package:gazback/page_kendaraan.dart';
 
@@ -20,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _pages = [
       HomePage(setPage),
       KendaraanPage(),
-      SizedBox.shrink(),
-      SizedBox.shrink(),
+      GazkanPage(),
+      HadiahPage(),
       AkunPage(),
     ];
   }
@@ -231,16 +233,3 @@ const hari = const [
   'Sabtu',
   'Minggu'
 ];
-
-/*
-final CameraPosition _initialPos = CameraPosition(
-    target: LatLng(-7.7753915, 110.3777944),
-    zoom: 16,
-  );
-  PermissionHandler()
-                  .requestPermissions([PermissionGroup.location]);
-              await FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => SplashScreen()),
-                  (r) => false);
-*/

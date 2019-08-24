@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gazback/scan.dart';
+import 'package:gazback/splash.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -57,7 +58,13 @@ class _AkunPageState extends State<AkunPage> {
                             'Extend Membership',
                             style: TextStyle(color: Colors.blue, fontSize: 12),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => SplashScreen()),
+                                (r) => false);
+                          },
                         ),
                       ],
                     ),
@@ -84,18 +91,24 @@ class _AkunPageState extends State<AkunPage> {
                   ],
                 ),
               ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 28),
-                child: Column(
-                  children: <Widget>[
-                    Image.asset('img/voucher.png'),
-                    Text(
-                      'GazBack\nVoucher',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Voucher()));
+                },
+                child: Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 28),
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset('img/voucher.png'),
+                      Text(
+                        'GazBack\nVoucher',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -414,6 +427,31 @@ class _DetailState extends State<Detail> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class Voucher extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('GazBack Voucher'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Image.asset('img/voucher-1.png'),
+              SizedBox(height: 8),
+              Image.asset('img/voucher-2.png'),
+              SizedBox(height: 8),
+              Image.asset('img/voucher-3.png'),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

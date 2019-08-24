@@ -177,6 +177,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                   'saldo': 250000,
                   'poin': 1500,
                   'koin': 100,
+                  'attempt_gacha' : 42,
                 });
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => HomeScreen()),

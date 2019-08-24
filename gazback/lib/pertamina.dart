@@ -107,8 +107,9 @@ class _PertaminaScreenState extends State<PertaminaScreen> {
               _showButton
                   ? RaisedButton(
                       onPressed: () {
+                        String copyPlat = _plat.toString();
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BeliBensin(plat: _plat)));
+                            builder: (context) => BeliBensin(plat: copyPlat)));
                       },
                       child: Text('ISI'),
                       textColor: Colors.white,
@@ -277,8 +278,11 @@ class _BeliBensinState extends State<BeliBensin> {
                     if (_harga == null) return;
                     Navigator.of(context).pop();
                     if (_docRefKendaraan == null) return;
-                    await _docRefPengguna
-                        .updateData({'saldo': FieldValue.increment(-_harga)});
+                    await _docRefPengguna.updateData({
+                      'saldo': FieldValue.increment(-_harga),
+                      'attempt_gacha':
+                          FieldValue.increment(double.parse(_literController.text).floor())
+                    });
                     await _docRefKendaraan.collection('pengisian').add({
                       'keterangan':
                           'Pengisian $_jenisBensinValue ${_literController.text}L',

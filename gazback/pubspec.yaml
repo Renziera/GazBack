@@ -110,6 +110,32 @@ flutter:
     - img/misi-baru.png
     - img/misi-berjalan-1.png
     - img/misi-berjalan-2.png
+
+    - img/coin-pertamina-1.png
+    - img/coin-pertamina-2.png
+    - img/coin-pertamina-3.png
+    - img/coin-pertamina-4.png
+    - img/poin-pertamina-1.png
+    - img/poin-pertamina-2.png
+    - img/poin-pertamina-3.png
+    - img/poin-pertamina-4.png
+    - img/coin-umkm-1.png
+    - img/coin-umkm-2.png
+    - img/coin-umkm-3.png
+    - img/poin-umkm-1.png
+    - img/poin-umkm-2.png
+    - img/poin-umkm-3.png
+
+    - img/placeholder_gazkan.png
+    - img/gazkan_cart.png
+
+    - img/voucher-1.png
+    - img/voucher-2.png
+    - img/voucher-3.png
+
+    - img/poin-undian-1.png
+    - img/coin-undian-1.png
+    - img/coin-undian-2.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
