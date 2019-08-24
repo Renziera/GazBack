@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gazback/mission.dart';
 import 'package:gazback/peta.dart';
+import 'package:gazback/roulette.dart';
 import 'package:gazback/scan.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -101,7 +103,10 @@ class HomePage extends StatelessWidget {
                         Image.asset('img/roulette.png'),
                         SizedBox(height: 8),
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RouletteScreen()));
+                          },
                           color: Colors.teal.shade300,
                           child: Column(
                             children: <Widget>[
@@ -129,7 +134,10 @@ class HomePage extends StatelessWidget {
                         Image.asset('img/daily.png'),
                         SizedBox(height: 8),
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => GazKoin()));
+                          },
                           color: Colors.teal.shade300,
                           child: Column(
                             children: <Widget>[
@@ -158,8 +166,29 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 16),
+          FlatButton(
+            padding: EdgeInsets.all(0),
+            child: Image.asset('img/mission.png'),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MissionScreen()));
+            },
+          ),
         ],
       ),
+    );
+  }
+}
+
+class GazKoin extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Daily GazCoin'),
+      ),
+      body: Image.asset('img/placeholder_gazcoin.png'),
     );
   }
 }
@@ -351,10 +380,6 @@ class _SaldoState extends State<Saldo> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        'selengkapnya',
-                        style: TextStyle(color: Colors.white, fontSize: 10),
-                      ),
                     ],
                   ),
                   Column(
@@ -400,10 +425,6 @@ class _SaldoState extends State<Saldo> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      Text(
-                        'selengkapnya',
-                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     ],
                   ),

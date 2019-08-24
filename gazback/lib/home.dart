@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gazback/page_akun.dart';
 import 'package:gazback/page_home.dart';
+import 'package:gazback/page_kendaraan.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,10 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _pages = [
       HomePage(setPage),
+      KendaraanPage(),
       SizedBox.shrink(),
       SizedBox.shrink(),
-      SizedBox.shrink(),
-      AkunScreen(),
+      AkunPage(),
     ];
   }
 
@@ -99,12 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'img/prize-pale.png',
+              'img/gazkan-pale.png',
               height: 24,
               width: 24,
             ),
             activeIcon: Image.asset(
-              'img/prize-color.png',
+              'img/gazkan-color.png',
               height: 24,
               width: 24,
             ),

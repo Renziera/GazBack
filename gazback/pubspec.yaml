@@ -27,6 +27,7 @@ dependencies:
   google_maps_flutter: ^0.5.20+5
   permission_handler: ^3.2.2
   url_launcher: ^5.1.2
+  flutter_spinning_wheel: ^1.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,6 +67,8 @@ flutter:
     - img/home-pale.png
     - img/kendaraan-color.png
     - img/kendaraan-pale.png
+    - img/gazkan-color.png
+    - img/gazkan-pale.png
     - img/prize-color.png
     - img/prize-pale.png
     - img/profile-color.png
@@ -80,6 +83,7 @@ flutter:
     - img/roulette.png
     - img/voucher.png
     - img/toilet.png
+    - img/stiker.png
 
     - img/snack-1.png
     - img/snack-2.png
@@ -93,6 +97,19 @@ flutter:
 
     - img/terima.png
     - img/scan.png
+    - img/puteran.png
+    - img/penunjuk.png
+
+    - img/oli.png
+    - img/placeholder_kendaraan.png
+    - img/placeholder_tambah_kendaraan.png
+    - img/placeholder_oli.png
+    - img/placeholder_gazcoin.png
+    - img/mission.png
+
+    - img/misi-baru.png
+    - img/misi-berjalan-1.png
+    - img/misi-berjalan-2.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

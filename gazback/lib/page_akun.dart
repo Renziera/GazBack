@@ -3,13 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gazback/scan.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class AkunScreen extends StatefulWidget {
+class AkunPage extends StatefulWidget {
   @override
-  _AkunScreenState createState() => _AkunScreenState();
+  _AkunPageState createState() => _AkunPageState();
 }
 
-class _AkunScreenState extends State<AkunScreen> {
+class _AkunPageState extends State<AkunPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,7 +19,158 @@ class _AkunScreenState extends State<AkunScreen> {
           Detail(),
           Container(
             color: Colors.white,
-            height: 128,
+            padding: EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Image.asset('img/protect.png'),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'GazBack Protection',
+                          style: TextStyle(color: Colors.black, fontSize: 24),
+                        ),
+                        Text(
+                          'Protected',
+                          style: TextStyle(color: Colors.blue, fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          '84 Days Left!',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Text(
+                          '15 November 2019',
+                          style: TextStyle(color: Colors.blue, fontSize: 28),
+                        ),
+                        FlatButton(
+                          child: Text(
+                            'Extend Membership',
+                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset('img/partner.png'),
+                    Text(
+                      'Diskon Khusus\nPartner Pertamina',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 28),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset('img/voucher.png'),
+                    Text(
+                      'GazBack\nVoucher',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.asset('img/toilet.png'),
+                Column(
+                  children: <Widget>[
+                    Text(
+                      'Toilet Bersih\nRestroom Nyaman',
+                      style: TextStyle(color: Colors.blue, fontSize: 24),
+                    ),
+                    Text(
+                      'Khusus Premium Member GazBck',
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                    RaisedButton(
+                      color: Colors.teal.shade300,
+                      child: Text(
+                        'Buka Pintu',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ScanScreen()));
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(8),
+            width: double.infinity,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'GazMan Daily Conversation',
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
+                Text(
+                  'August 2019 Series',
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+                Image.asset('img/stiker.png'),
+                RaisedButton(
+                  color: Colors.teal.shade300,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'Claim',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        'Sticker',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    launch(
+                        'https://store.line.me/stickershop/product/1484841/id');
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
