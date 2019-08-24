@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gazback/peta.dart';
 import 'package:gazback/scan.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -30,6 +31,133 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 16),
           Terdekat(),
           SizedBox(height: 16),
+          Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      '   Spesial Untukmu',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text(
+                        'Lihat Semua',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    height: 156,
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 16),
+                        Image.asset('img/poster-1.png'),
+                        SizedBox(width: 16),
+                        Image.asset('img/poster-2.png'),
+                        SizedBox(width: 16),
+                        Image.asset('img/poster-3.png'),
+                        SizedBox(width: 16),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Tambah Kesempatan Menang',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Image.asset('img/roulette.png'),
+                        SizedBox(height: 8),
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.teal.shade300,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Roulette',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                'GazPoint',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Image.asset('img/daily.png'),
+                        SizedBox(height: 8),
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.teal.shade300,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Collect Daily',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                'GazKoin',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -40,8 +168,9 @@ class Terdekat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //Decoration --> BoxDecoration --> Image --> DecorationImage
-      color: Colors.indigo,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('img/pertamina.png'), fit: BoxFit.cover)),
       padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,11 +189,11 @@ class Terdekat extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Text(
-                'SPBU Pertamina 44.551.08',
+                'SPBU Pertamina Jakarta Pusat',
                 style: TextStyle(color: Colors.white),
               ),
               Text(
-                'Jl. Tomang Raya, Palmerah',
+                'Jl. Abdul Muis 59, Petojo',
                 style: TextStyle(color: Colors.white),
               ),
               Text(
@@ -90,7 +219,10 @@ class Terdekat extends StatelessWidget {
                   'Get Direction',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => PetaPertamina()));
+                },
                 color: Colors.teal.shade300,
               ),
             ],
@@ -121,10 +253,11 @@ class BrightStore extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Icon(Icons.accessibility),
-              Icon(Icons.accessibility),
-              Icon(Icons.accessibility),
-              Icon(Icons.accessibility),
+              Image.asset('img/snack-1.png'),
+              Image.asset('img/snack-2.png'),
+              Image.asset('img/snack-3.png'),
+              Image.asset('img/snack-4.png'),
+              Image.asset('img/snack-5.png'),
               RaisedButton(
                 child: Text(
                   'GazKan saja!',
@@ -159,6 +292,7 @@ class _SaldoState extends State<Saldo> {
   int _poin;
   int _saldo;
   int _koin;
+  String _uid;
 
   @override
   void initState() {
@@ -176,6 +310,7 @@ class _SaldoState extends State<Saldo> {
       _poin = ds.data['poin'];
       _saldo = ds.data['saldo'];
       _koin = ds.data['koin'];
+      _uid = user.uid;
     });
   }
 
@@ -293,8 +428,11 @@ class _SaldoState extends State<Saldo> {
                       padding: EdgeInsets.all(0),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.arrow_downward),
-                          Text('Terima'),
+                          Image.asset('img/terima.png'),
+                          Text(
+                            'Terima',
+                            style: TextStyle(color: Colors.blue),
+                          ),
                         ],
                       ),
                       onPressed: () {
@@ -303,9 +441,20 @@ class _SaldoState extends State<Saldo> {
                             barrierDismissible: true,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                content: QrImage(
-                                  data: 'ASDF',
-                                  size: 200,
+                                title: Center(child: Text('QR Anda')),
+                                content: SizedBox(
+                                  height: 256,
+                                  width: 256,
+                                  child: Center(
+                                    child: QrImage(
+                                      data: '$_uid',
+                                      size: 256,
+                                      embeddedImageStyle: QrEmbeddedImageStyle(
+                                          size: Size.square(32)),
+                                      embeddedImage:
+                                          AssetImage('img/logo_gazback.png'),
+                                    ),
+                                  ),
                                 ),
                               );
                             });
@@ -327,7 +476,10 @@ class _SaldoState extends State<Saldo> {
                           height: 48,
                           width: 48,
                         ),
-                        Text('Ambil Hadiah'),
+                        Text(
+                          'Ambil Hadiah',
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ],
                     ),
                     onPressed: () {
@@ -346,8 +498,11 @@ class _SaldoState extends State<Saldo> {
                       padding: EdgeInsets.all(0),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.scanner),
-                          Text('Scan'),
+                          Image.asset('img/scan.png'),
+                          Text(
+                            'Scan',
+                            style: TextStyle(color: Colors.blue),
+                          ),
                         ],
                       ),
                       onPressed: () {

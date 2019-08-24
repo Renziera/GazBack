@@ -26,6 +26,7 @@ dependencies:
   qr_flutter: ^3.0.1
   google_maps_flutter: ^0.5.20+5
   permission_handler: ^3.2.2
+  url_launcher: ^5.1.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -60,6 +61,7 @@ flutter:
   assets:
     - img/logo_gazback.png
     - img/gazback.png
+
     - img/home-color.png
     - img/home-pale.png
     - img/kendaraan-color.png
@@ -68,7 +70,29 @@ flutter:
     - img/prize-pale.png
     - img/profile-color.png
     - img/profile-pale.png
+
     - img/prize.png
+    - img/membership.png
+    - img/pertamina.png
+    - img/partner.png
+    - img/daily.png
+    - img/protect.png
+    - img/roulette.png
+    - img/voucher.png
+    - img/toilet.png
+
+    - img/snack-1.png
+    - img/snack-2.png
+    - img/snack-3.png
+    - img/snack-4.png
+    - img/snack-5.png
+
+    - img/poster-1.png
+    - img/poster-2.png
+    - img/poster-3.png
+
+    - img/terima.png
+    - img/scan.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
