@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gazback/scan.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class HomePage extends StatelessWidget {
+  final setPage;
+  HomePage(this.setPage);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -21,8 +25,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-          Saldo(),
-          BrightStore(),
+          Saldo(setPage),
+          BrightStore(setPage),
           SizedBox(height: 16),
           Terdekat(),
           SizedBox(height: 16),
@@ -98,6 +102,8 @@ class Terdekat extends StatelessWidget {
 }
 
 class BrightStore extends StatelessWidget {
+  final setPage;
+  BrightStore(this.setPage);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,7 +130,9 @@ class BrightStore extends StatelessWidget {
                   'GazKan saja!',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setPage(2);
+                },
                 color: Colors.teal.shade300,
               ),
             ],
@@ -141,6 +149,8 @@ class BrightStore extends StatelessWidget {
 }
 
 class Saldo extends StatefulWidget {
+  final setPage;
+  Saldo(this.setPage);
   @override
   _SaldoState createState() => _SaldoState();
 }
@@ -183,8 +193,8 @@ class _SaldoState extends State<Saldo> {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
-                    Colors.cyan,
-                    Colors.blue,
+                    Color(0xFF00A7C6),
+                    Color(0xFF2080B5),
                   ],
                 ),
               ),
@@ -273,12 +283,78 @@ class _SaldoState extends State<Saldo> {
           child: Card(
             color: Colors.white,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  SizedBox(
+                    width: 48,
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.arrow_downward),
+                          Text('Terima'),
+                        ],
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: QrImage(
+                                  data: 'ASDF',
+                                  size: 200,
+                                ),
+                              );
+                            });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 48,
+                    child: VerticalDivider(
+                      color: Colors.black,
+                    ),
+                  ),
                   FlatButton(
-                    child: Icon(Icons.ac_unit),
-                    onPressed: () {},
+                    padding: EdgeInsets.all(0),
+                    child: Column(
+                      children: <Widget>[
+                        Image.asset(
+                          'img/prize.png',
+                          height: 48,
+                          width: 48,
+                        ),
+                        Text('Ambil Hadiah'),
+                      ],
+                    ),
+                    onPressed: () {
+                      widget.setPage(3);
+                    },
+                  ),
+                  SizedBox(
+                    height: 48,
+                    child: VerticalDivider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 48,
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.scanner),
+                          Text('Scan'),
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ScanScreen()));
+                      },
+                    ),
                   ),
                 ],
               ),

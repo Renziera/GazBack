@@ -8,13 +8,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  final List<Widget> _pages = [
-    HomePage(),
-    SizedBox.shrink(),
-    SizedBox.shrink(),
-    SizedBox.shrink(),
-  ];
-  
+  static List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      HomePage(setPage),
+      SizedBox.shrink(),
+      SizedBox.shrink(),
+      SizedBox.shrink(),
+    ];
+  }
+
+  void setPage(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +38,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: <Widget>[
           IconButton(
+            icon: Icon(Icons.history),
+            iconSize: 36,
+            color: Colors.grey,
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => HistoryScreen()));
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.notifications),
             iconSize: 36,
             color: Colors.grey,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => NotificationScreen()));
+            },
           ),
         ],
       ),
@@ -44,24 +68,103 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Image.asset(
+              'img/home-pale.png',
+              height: 24,
+              width: 24,
+            ),
+            activeIcon: Image.asset(
+              'img/home-color.png',
+              height: 24,
+              width: 24,
+            ),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Image.asset(
+              'img/kendaraan-pale.png',
+              height: 24,
+              width: 24,
+            ),
+            activeIcon: Image.asset(
+              'img/kendaraan-color.png',
+              height: 24,
+              width: 24,
+            ),
+            title: Text('Kendaraan'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Image.asset(
+              'img/prize-pale.png',
+              height: 24,
+              width: 24,
+            ),
+            activeIcon: Image.asset(
+              'img/prize-color.png',
+              height: 24,
+              width: 24,
+            ),
+            title: Text('GazKan!'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Image.asset(
+              'img/prize-pale.png',
+              height: 24,
+              width: 24,
+            ),
+            activeIcon: Image.asset(
+              'img/prize-color.png',
+              height: 24,
+              width: 24,
+            ),
+            title: Text('Hadiah'),
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'img/profile-pale.png',
+              height: 24,
+              width: 24,
+            ),
+            activeIcon: Image.asset(
+              'img/profile-color.png',
+              height: 24,
+              width: 24,
+            ),
             title: Text('Akun'),
           ),
         ],
       ),
       body: _pages[_currentIndex],
+    );
+  }
+}
+
+class NotificationScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notifikasi'),
+      ),
+      body: Center(
+        child: Text('Belum ada notifikasi'),
+      ),
+    );
+  }
+}
+
+class HistoryScreen extends StatefulWidget {
+  @override
+  _HistoryScreenState createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('History'),
+      ),
     );
   }
 }

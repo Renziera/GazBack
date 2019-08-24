@@ -60,7 +60,16 @@ flutter:
   assets:
     - img/logo_gazback.png
     - img/gazback.png
-
+    - img/home-color.png
+    - img/home-pale.png
+    - img/kendaraan-color.png
+    - img/kendaraan-pale.png
+    - img/prize-color.png
+    - img/prize-pale.png
+    - img/profile-color.png
+    - img/profile-pale.png
+    - img/prize.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
